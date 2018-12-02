@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Wasserstaende demo</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    .mapboxgl-popup {
+        max-width: 680px;
+        font: 11px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+</style>
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'MAPBOXAPIKEY';
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [11.426050, 48.757417],
+    zoom: 11.15
+});
+
+var description=`<table border="1" cellspacing="0" cellpadding="1">
+<tbody>
+<tr>
+<td valign="top" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Pegel</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HSW / RNW (n.d. = nicht definiert)</td>
+<td valign="top"><b><abbr title="Die Uhrzeiten sind während der Sommerzeit in MESZ (Mitteleuropäische Sommerzeit) und während der Winterzeit in MEZ (Mitteleuropäische Zeit) angegeben.">Uhr</abbr></b></td>
+<td colspan="2"><b>Mo.<br>26.11.18</b></td>
+<td colspan="2"><b>Di.<br>27.11.18</b></td>
+<td colspan="2"><b>Mi.<br>28.11.18</b></td>
+<td colspan="2"><b>Do.<br>29.11.18</b></td>
+<td colspan="2"><b>Fr.<br>30.11.18</b></td>
+<td colspan="2"><b>Sa.<br>01.12.18</b></td>
+<td colspan="2"><b>Heute<br>02.12.18</b></td>
+</tr>
+<tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#CCCCCC'; document.getElementById('td_1').bgColor='#CCCCCC'" onmouseout="this.bgColor='#FFFFFF'; document.getElementById('td_1').bgColor='#FFFFFF'">
+<td id="td_1" valign="top" rowspan="4" bgcolor="#FFFFFF">&nbsp;&nbsp;<a href="/DE/dynamisch/gewaesserkunde/wasserstaende/wasserstaendeUebersichtGrafik.html.php?pegelId=824a046b-9ca3-4db8-993d-e755122854e0" target="_blank"></a>
+<a href="/DE/dynamisch/gewaesserkunde/wasserstaende/index.php?target=2&amp;pegelId=824a046b-9ca3-4db8-993d-e755122854e0">INGOLSTADT LUITPOLDSTRASSE</a>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n.d.&nbsp;/&nbsp;n.d.</td>
+<td valign="top"><b>05:00:00</b></td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap">138</td>
+<td valign="top" align="right" nowrap="nowrap">(+2)</td>
+<td valign="top" align="right" nowrap="nowrap">140</td>
+<td valign="top" align="right" nowrap="nowrap">(+2)</td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-4)</td>
+<td valign="top" align="right" nowrap="nowrap">138</td>
+<td valign="top" align="right" nowrap="nowrap">(+2)</td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap"><b>139</b></td>
+<td valign="top" align="right" nowrap="nowrap"><b>(+3)</b></td>
+</tr>
+<tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#CCCCCC'; document.getElementById('td_1').bgColor='#CCCCCC'" onmouseout="this.bgColor='#FFFFFF'; document.getElementById('td_1').bgColor='#FFFFFF'">
+<td valign="top"><b>07:00:00</b></td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(+1)</td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(+⁄-0)</td>
+<td valign="top" align="right" nowrap="nowrap">134</td>
+<td valign="top" align="right" nowrap="nowrap">(-3)</td>
+<td valign="top" align="right" nowrap="nowrap">138</td>
+<td valign="top" align="right" nowrap="nowrap">(+4)</td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap"><b>138</b></td>
+<td valign="top" align="right" nowrap="nowrap"><b>(+2)</b></td>
+</tr>
+<tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#CCCCCC'; document.getElementById('td_1').bgColor='#CCCCCC'" onmouseout="this.bgColor='#FFFFFF'; document.getElementById('td_1').bgColor='#FFFFFF'">
+<td valign="top"><b>13:00:00</b></td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap">143</td>
+<td valign="top" align="right" nowrap="nowrap">(+6)</td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(-6)</td>
+<td valign="top" align="right" nowrap="nowrap">135</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(+2)</td>
+<td valign="top" align="right" nowrap="nowrap">135</td>
+<td valign="top" align="right" nowrap="nowrap">(-2)</td>
+<td valign="top" align="right" nowrap="nowrap"><b>--</b></td>
+<td valign="top" align="right" nowrap="nowrap"><b>(--)</b></td>
+</tr>
+<tr bgcolor="#FFFFFF" onmouseover="this.bgColor='#CCCCCC'; document.getElementById('td_1').bgColor='#CCCCCC'" onmouseout="this.bgColor='#FFFFFF'; document.getElementById('td_1').bgColor='#FFFFFF'">
+<td valign="top"><b>21:00:00</b></td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(-1)</td>
+<td valign="top" align="right" nowrap="nowrap">141</td>
+<td valign="top" align="right" nowrap="nowrap">(+4)</td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-5)</td>
+<td valign="top" align="right" nowrap="nowrap">137</td>
+<td valign="top" align="right" nowrap="nowrap">(+1)</td>
+<td valign="top" align="right" nowrap="nowrap">136</td>
+<td valign="top" align="right" nowrap="nowrap">(-1)</td>
+<td valign="top" align="right" nowrap="nowrap">138</td>
+<td valign="top" align="right" nowrap="nowrap">(+2)</td>
+<td valign="top" align="right" nowrap="nowrap"><b>--</b></td>
+<td valign="top" align="right" nowrap="nowrap"><b>(--)</b></td>
+</tr>
+</tbody>
+</table>`
+
+map.on('load', function () {
+    // Add a layer showing the places.
+    map.addLayer({
+        "id": "places",
+        "type": "symbol",
+        "source": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {
+                        "description": "<strong>INGOLSTADT LUITPOLDSTRASSE</strong>" +description+"<p><a href=\"http://structura.ws\" target=\"_blank\" title=\"More details\">Meer details hier...</a></p>",
+                        "icon": "theatre"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [11.426050, 48.757417]
+                    }
+                }]
+            }
+        },
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+
+    // When a click event occurs on a feature in the places layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    map.on('click', 'places', function (e) {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.description;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+      // custom markers:
+      // https://www.mapbox.com/help/custom-markers-gl-js/
+      new mapboxgl.Popup({offset: 35})
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'places', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+    });
+});
+</script>
+
+</body>
+</html>
